@@ -1,8 +1,6 @@
 # PROGRAM 1 : MIPS Assembly program to sort the given numbers using the bubble sort algorithm. (use subroutine bubble)
 # Date: 26/08/2024
 
-# MIPS Assembly program to sort numbers using bubble sort
-
 .data
 arr:    .word 10, 60, 40, 70, 20, 30, 90, 100, 0, 80, 50
 space:  .asciiz " "
