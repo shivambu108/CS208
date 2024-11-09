@@ -1,6 +1,4 @@
-# PROGRAM 1 : Binary Search with check for ascending order in an array
-# Date: 30/09/2024
-
+# Data section: Declaring variables and strings
 .data
     array: .space 400      # Reserve 400 bytes (100 integers * 4 bytes each)
     size: .word 0          # Variable to store array size
