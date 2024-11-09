@@ -22,7 +22,7 @@ main:
 
     la   $t0, buffer
     lb   $t1, ($t0)
-    loop_remove_newline:
+loop_remove_newline:
         beq  $t1, $zero, end_remove_newline
         beq  $t1, 10, set_null
         addi $t0, $t0, 1
@@ -41,39 +41,44 @@ main:
     syscall
     j    exit_program
 
-    print_palin:
-        li   $v0, 4
-        la   $a0, success
-        syscall
+print_palin:
+    li   $v0, 4
+    la   $a0, success
+    syscall
 
-    exit_program:
-        li   $v0, 10
-        syscall
+exit_program:
+    li   $v0, 10
+    syscall
 
 is_palin:
     move $t0, $a0
     li   $t1, 0
+
     find_len:
         lb   $t2, ($t0)
-        beq  $t2, $zero, len_found
-        addi $t1, $t1, 1
-        addi $t0, $t0, 1
+        beq  $t2, $zero, len_found  # If end of string (null byte), length found
+        addi $t1, $t1, 1            # Increment length counter
+        addi $t0, $t0, 1            # Move to next character
         j    find_len
+        
     len_found:
-    move $t2, $t1
-    move $t0, $a0
-    add  $t3, $a0, $t1
-    addi $t3, $t3, -1
-    li   $v0, 1
+    move $t2, $t1                   # Store length in $t2
+    move $t0, $a0                   # Reset start pointer
+    add  $t3, $a0, $t1              # Calculate end pointer
+    addi $t3, $t3, -1               # Point to last character
+    li   $v0, 1                     # Assume palindrome (return value)
+
     check_palin:
-        bge  $t0, $t3, done_check
-        lb   $t4, ($t0)
-        lb   $t5, ($t3)
-        bne  $t4, $t5, not_palin
-        addi $t0, $t0, 1
-        addi $t3, $t3, -1
+        bge  $t0, $t3, done_check   # If pointers cross, palindrome check done
+        lb   $t4, ($t0)             # Load character from start pointer
+        lb   $t5, ($t3)             # Load character from end pointer
+        bne  $t4, $t5, not_palin    # If mismatch, not a palindrome
+        addi $t0, $t0, 1            # Move start pointer forward
+        addi $t3, $t3, -1           # Move end pointer backward
         j    check_palin
+
     not_palin:
-        li   $v0, 0
+        li   $v0, 0                 # Set return value to 0 (not a palindrome)
+
     done_check:
-        jr   $ra
+        jr   $ra                    # Return to caller
