@@ -58,19 +58,23 @@ iter_fib:    # Calculate Fibonacci iteratively
     li $t1, 0            # f(n-2) = 0
     li $t2, 1            # f(n-1) = 1
     li $t4, 0            # counter = 0
-loop:   bge $t4, $a0, end_i  # If counter >= n, end
+loop:   
+    bge $t4, $a0, end_i  # If counter >= n, end
     add $t3, $t1, $t2    # next_fib = f(n-2) + f(n-1)
     move $t1, $t2        # f(n-2) = f(n-1)
     move $t2, $t3        # f(n-1) = next_fib
     addi $t4, $t4, 1     # counter++
     j loop
-end_i:  move $v0, $t1    # Return nth number
+end_i:  
+    move $v0, $t1    # Return nth number
     move $v1, $t2        # Return (n+1)th number
     jr $ra
-ret0_i: li $v0, 0        # Return (0,1) for n=0
+ret0_i: 
+    li $v0, 0        # Return (0,1) for n=0
     li $v1, 1
     jr $ra
-ret1_i: li $v0, 1        # Return (1,1) for n=1
+ret1_i: 
+    li $v0, 1        # Return (1,1) for n=1
     li $v1, 1
     jr $ra
 
