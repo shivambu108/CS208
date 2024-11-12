@@ -96,15 +96,18 @@ recur:  # Calculate Fibonacci recursively
     jal recur
     add $v0, $v0, $s1    # f(n) = f(n-2) + f(n-1)
     add $v1, $s1, $s2    # f(n+1) = f(n-1) + f(n)
-ret_r:  lw $ra, 0($sp)   # Restore registers
+ret_r:  
+    lw $ra, 0($sp)   # Restore registers
     lw $s0, 4($sp)
     lw $s1, 8($sp)
     lw $s2, 12($sp)
     addi $sp, $sp, 16
     jr $ra
-ret1_r: li $v0, 1        # Return (1,1) for n=1
+ret1_r: 
+    li $v0, 1        # Return (1,1) for n=1
     li $v1, 1
     j ret_r
-ret0_r: li $v0, 0        # Return (0,1) for n=0
+ret0_r: 
+    li $v0, 0        # Return (0,1) for n=0
     li $v1, 1
     j ret_r
