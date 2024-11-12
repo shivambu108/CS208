@@ -1,15 +1,16 @@
 .data
-method_prompt: .asciiz "Choose method (0-iterative/1-recursive): "
+choose_method: .asciiz "Choose method (0-iterative/1-recursive): "
 error: .asciiz "Invalid! Try again\n"
-n_prompt: .asciiz "Enter n: "
+enter_n: .asciiz "Enter n: "
 newline: .asciiz "\n"
 
 .text
+.globl main
 #-------------------- Main Program Flow --------------------#
 main:
 input:  # Get and validate method choice (0 or 1)
     li $v0, 4            # Print method prompt
-    la $a0, method_prompt
+    la $a0, choose_method
     syscall
     li $v0, 5            # Get user's choice
     syscall
@@ -25,7 +26,7 @@ retry:  # Handle invalid input
     
 get_n:  # Get the Fibonacci number position
     li $v0, 4            # Print n prompt
-    la $a0, n_prompt
+    la $a0, enter_n
     syscall
     li $v0, 5            # Read n
     syscall
